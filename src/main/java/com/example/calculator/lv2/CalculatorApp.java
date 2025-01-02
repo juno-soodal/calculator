@@ -21,13 +21,9 @@ public class CalculatorApp {
             Integer firstNumber = getNumber("첫번째 숫자: ");
             Integer secondNumber = getNumber("두번째 숫자: ");
             String operator = getOperator();
-            double result =calculator.calculate(operator, firstNumber, secondNumber);
+            calculate(calculator, operator, firstNumber, secondNumber);
 
-            calculator.addNumber(result);
-
-            System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
             System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력)");
-
             String command = scanner.nextLine();
             if (command.equals("exit")) {
                 break;
@@ -41,6 +37,17 @@ public class CalculatorApp {
             }
         }
     }
+
+    private static void calculate(Calculator calculator, String operator, Integer firstNumber, Integer secondNumber) {
+        try {
+            double result = calculator.calculate(operator, firstNumber, secondNumber);
+            calculator.addNumber(result);
+            System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
+        } catch (ArithmeticException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 
     private static Integer getNumber(String message) {
         Integer inputNumber;
