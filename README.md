@@ -23,7 +23,10 @@
 
 Calculator 클래스 생성
 calculator 내부로 calculate 메서드 이동
-firstNumber, secondNumber, operator 캡슐화
-계산결과 컬렉션에 저장 기능 추가
-첫번째 값 삭제 기능 추가
-저장된 결과 출력 기능
+
+[//]: # (firstNumber, secondNumber, operator 캡슐화)
+- 계산결과 컬렉션에 저장 기능 추가
+- 첫번째 값 삭제 기능 추가
+- 저장된 결과 출력 기능
+- 리팩토링
+  - - 커맨드 패턴 적용 후 새로운 연산자가 추가되어도 Calculator 소스코드는 변동 안됨
