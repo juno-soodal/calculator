@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CalculatorApp {
+    // getNumber, getOperator 공통으로 사용해서 전역 변수로 지정
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         while (true) {
@@ -11,9 +12,7 @@ public class CalculatorApp {
             Integer secondNumber = getNumber("두번째 숫자: ");
             String operator = getOperator();
             double result = calculate(operator, firstNumber, secondNumber);
-
             System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
-
             System.out.print("더 계산하시겠습니까? (exit 입력 시 종료)");
             String exit = scanner.nextLine();
             if (exit.equals("exit")) {
@@ -40,11 +39,11 @@ public class CalculatorApp {
 
 
     private static Integer getNumber(String message) {
-        Integer firstNumber = null;
+        Integer inputNumber;
         while (true) {
             try {
                 System.out.print(message);
-                firstNumber = scanner.nextInt();
+                inputNumber = scanner.nextInt();
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("숫자만 입력 가능합니다.");
@@ -53,7 +52,7 @@ public class CalculatorApp {
                 scanner.nextLine();
             }
         }
-        return firstNumber;
+        return inputNumber;
     }
 
     private static String getOperator() {
