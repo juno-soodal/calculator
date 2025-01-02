@@ -1,32 +1,29 @@
 package com.example.calculator.lv2;
 
+import com.example.calculator.lv2.operator.NoOperation;
+import com.example.calculator.lv2.operator.Operation;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Calculator {
 
-    private List<Double> list;
-    private Double firstNumber;
-    private Double secondNumber;
+    private final List<Double> list = new ArrayList<>();
+
     private String operator;
 
-    public Calculator(List<Double> list) {
-        this.list = list;
+    private Map<String,Operation> operations;
+    private Operation noOperation = new NoOperation();
+
+    public Calculator(Map<String, Operation> operations) {
+        this.operations = operations;
     }
 
-    public double calculate() {
-        switch (operator) {
-            case "+" :
-                return firstNumber + secondNumber;
-            case "-":
-                return  firstNumber - secondNumber;
-            case "*":
-                return  firstNumber * secondNumber;
-            case "/":
-                return  (double) firstNumber / secondNumber;
-            default:
-                return 0;
-        }
+    public double calculate(String operator, Integer firstNumber, Integer secondNumber) {
+        Operation operation = operations.getOrDefault(operator, noOperation);
+
+        return operation.operate(firstNumber, secondNumber);
     }
 
     public void addNumber(double number) {
@@ -45,27 +42,4 @@ public class Calculator {
         System.out.println(list);
     }
 
-    public Double getFirstNumber() {
-        return firstNumber;
-    }
-
-    public void setFirstNumber(Double firstNumber) {
-        this.firstNumber = firstNumber;
-    }
-
-    public Double getSecondNumber() {
-        return secondNumber;
-    }
-
-    public void setSecondNumber(Double secondNumber) {
-        this.secondNumber = secondNumber;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
 }
