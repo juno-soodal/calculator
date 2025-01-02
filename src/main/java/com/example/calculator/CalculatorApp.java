@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class CalculatorApp {
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             Integer firstNumber = getNumber("첫번째 숫자: ");
             Integer secondNumber = getNumber("두번째 숫자: ");
