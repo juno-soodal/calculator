@@ -11,8 +11,6 @@ public class Calculator {
 
     private final List<Double> list = new ArrayList<>();
 
-    private String operator;
-
     private Map<String,Operation> operations;
     private Operation noOperation = new NoOperation();
 
