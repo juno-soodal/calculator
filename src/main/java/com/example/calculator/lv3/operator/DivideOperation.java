@@ -1,15 +1,22 @@
 package com.example.calculator.lv3.operator;
 
-public class DivideOperation implements Operation {
+public class DivideOperation implements Operation{
+
     @Override
-    public Double operate(Integer firstNumber, Integer secondNumber) {
+    public <T extends Number> T operate(T firstNumber, T secondNumber) {
         validate(secondNumber);
-        return (double) firstNumber / secondNumber;
+        if (firstNumber instanceof Double || secondNumber instanceof Double) {
+            Double result = firstNumber.doubleValue() / secondNumber.doubleValue();
+            return (T) result;
+        }
+        Integer result = firstNumber.intValue() / secondNumber.intValue();
+        return (T) result;
     }
 
-    private void validate(Integer secondNumber) {
-        if (secondNumber == 0) {
+    private <T extends Number> void validate(T secondNumber) {
+        if (secondNumber.doubleValue() == 0) {
             throw new ArithmeticException("나눗셈은 0으로 나눌 수 없습니다.");
         }
     }
+
 }
