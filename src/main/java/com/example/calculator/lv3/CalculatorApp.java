@@ -39,7 +39,10 @@ public class CalculatorApp {
                 }
             }
             double result = calculator.calculate(operatorType, firstNumber, secondNumber);
-            calculator.printResult(firstNumber,secondNumber,operatorType,result);
+            if (!Double.isNaN(result)) {
+                calculator.addNumber(result);
+                calculator.printResult(firstNumber,secondNumber,operatorType,result);
+            }
 
             System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력)");
             String command = scanner.nextLine();

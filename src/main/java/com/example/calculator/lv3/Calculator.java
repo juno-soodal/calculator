@@ -22,12 +22,10 @@ public class Calculator {
     public double calculate(OperatorType operator, Integer firstNumber, Integer secondNumber) {
         Operation operation = operations.getOrDefault(operator, noOperation);
         try {
-            double result = operation.operate(firstNumber, secondNumber);
-            addNumber(result);
-            return result;
+            return operation.operate(firstNumber, secondNumber);
         } catch (ArithmeticException e) {
             System.err.println(e.getMessage());
-            return 0.0;
+            return Double.NaN;
         }
 
     }
