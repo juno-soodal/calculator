@@ -20,8 +20,15 @@ public class Calculator {
 
     public double calculate(String operator, Integer firstNumber, Integer secondNumber) {
         Operation operation = operations.getOrDefault(operator, noOperation);
+        try {
+            double result = operation.operate(firstNumber, secondNumber);
+            addNumber(result);
+            return result;
+        } catch (ArithmeticException e) {
+            System.err.println(e.getMessage());
+            return 0.0;
+        }
 
-        return operation.operate(firstNumber, secondNumber);
     }
 
     public void addNumber(double number) {
@@ -33,11 +40,16 @@ public class Calculator {
             System.out.println("저장 된 값이 없습니다.");
             return null;
         }
-        return list.remove(0);
+        Double remove = list.remove(0);
+        System.out.println("삭제 된 값:" + remove);
+        return remove;
     }
 
-    public void printAll() {
+    public void printAllResult() {
         System.out.println(list);
     }
 
+    public void printResult(Integer firstNumber, Integer secondNumber, String operator, double result) {
+        System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
+    }
 }

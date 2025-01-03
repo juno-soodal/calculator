@@ -17,11 +17,14 @@ public class CalculatorApp {
         operations.put("/", new DivideOperation());
 
         Calculator calculator = new Calculator(operations);
+
         while (true) {
+
             Integer firstNumber = getNumber("첫번째 숫자: ");
             Integer secondNumber = getNumber("두번째 숫자: ");
             String operator = getOperator();
-            calculate(calculator, operator, firstNumber, secondNumber);
+            double result = calculator.calculate(operator, firstNumber, secondNumber);
+            calculator.printResult(firstNumber,secondNumber,operator,result);
 
             System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력)");
             String command = scanner.nextLine();
@@ -29,25 +32,13 @@ public class CalculatorApp {
                 break;
             }
             if (command.equals("result")) {
-                calculator.printAll();
+                calculator.printAllResult();
             }
             if (command.equals("remove")) {
-                Double removedNumber = calculator.removeFirst();
-                System.out.println("삭제 된 값:" + removedNumber);
+                calculator.removeFirst();
             }
         }
     }
-
-    private static void calculate(Calculator calculator, String operator, Integer firstNumber, Integer secondNumber) {
-        try {
-            double result = calculator.calculate(operator, firstNumber, secondNumber);
-            calculator.addNumber(result);
-            System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
-        } catch (ArithmeticException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
 
     private static Integer getNumber(String message) {
         Integer inputNumber;
