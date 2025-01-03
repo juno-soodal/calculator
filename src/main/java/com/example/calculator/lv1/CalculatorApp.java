@@ -12,7 +12,11 @@ public class CalculatorApp {
             Integer secondNumber = getNumber("두번째 숫자: ");
             String operator = getOperator();
             double result = calculate(operator, firstNumber, secondNumber);
-            System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
+            if (Double.isNaN(result)) {
+                System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+            }else {
+                System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
+            }
             System.out.print("더 계산하시겠습니까? (exit 입력 시 종료)");
             String exit = scanner.nextLine();
             if (exit.equals("exit")) {
@@ -31,10 +35,17 @@ public class CalculatorApp {
             case "*":
                 return  firstNumber * secondNumber;
             case "/":
+                if (isZero(secondNumber)) {
+                    return Double.NaN;
+                }
                 return  (double) firstNumber / secondNumber;
             default:
                 return 0;
         }
+    }
+
+    private static boolean isZero(Integer secondNumber) {
+        return secondNumber == 0;
     }
 
 

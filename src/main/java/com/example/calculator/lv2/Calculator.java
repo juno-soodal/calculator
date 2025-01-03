@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Calculator {
 
-    private final List<Double> list = new ArrayList<>();
+    private List<Double> list = new ArrayList<>();
 
     private Map<String,Operation> operations;
     private Operation noOperation = new NoOperation();
@@ -51,5 +51,13 @@ public class Calculator {
 
     public void printResult(Integer firstNumber, Integer secondNumber, String operator, double result) {
         System.out.println(firstNumber + " " + operator + " " + secondNumber + " = "  + result);
+    }
+
+    public List<Double> getList() {
+        return list;
+    }
+
+    public void setList(List<Double> list) {
+        this.list = list;
     }
 }
