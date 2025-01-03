@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Calculator {
+public class Calculator<T extends Number> {
 
-    private final List<Double> list = new ArrayList<>();
+    private final List<T> list = new ArrayList<>();
 
     private Map<OperatorType, Operation> operations;
     private Operation noOperation = new NoOperation();
@@ -19,27 +19,27 @@ public class Calculator {
         this.operations = operations;
     }
 
-    public double calculate(OperatorType operator, Integer firstNumber, Integer secondNumber) {
+    public T calculate(OperatorType operator, T firstNumber, T secondNumber) {
         Operation operation = operations.getOrDefault(operator, noOperation);
         try {
             return operation.operate(firstNumber, secondNumber);
-        } catch (ArithmeticException e) {
+        } catch (ArithmeticException | IllegalArgumentException e) {
             System.err.println(e.getMessage());
-            return Double.NaN;
+            return null;
         }
 
     }
 
-    public void addNumber(double number) {
+    public void addNumber(T number) {
         list.add(number);
     }
 
-    public Double removeFirst() {
+    public T removeFirst() {
         if (list.size() == 0) {
             System.out.println("저장 된 값이 없습니다.");
             return null;
         }
-        Double remove = list.remove(0);
+        T remove = list.remove(0);
         System.out.println("삭제 된 값:" + remove);
         return remove;
     }
@@ -48,7 +48,12 @@ public class Calculator {
         System.out.println(list);
     }
 
-    public void printResult(Integer firstNumber, Integer secondNumber, OperatorType operator, double result) {
+    public void printResult(T firstNumber, T secondNumber, OperatorType operator, T result) {
         System.out.println(firstNumber + " " + operator.getOperatorSymbol() + " " + secondNumber + " = "  + result);
+    }
+
+    public void findValuesAboveLimit(Number limitValue) {
+        List<T> list1 = list.stream().filter((T v) -> v.doubleValue() > limitValue.doubleValue()).toList();
+        System.out.println(list1);
     }
 }

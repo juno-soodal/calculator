@@ -21,12 +21,12 @@ public class CalculatorApp {
         operations.put(OperatorType.MULTIPLY, new MultiplyOperation());
         operations.put(OperatorType.DIVIDE, new DivideOperation());
 
-        Calculator calculator = new Calculator(operations);
+        Calculator<Number> calculator = new Calculator<>(operations);
 
         while (true) {
 
-            Integer firstNumber = getNumber("첫번째 숫자: ");
-            Integer secondNumber = getNumber("두번째 숫자: ");
+            Number firstNumber  = inputNumber("첫번째 숫자: ");
+            Number secondNumber = inputNumber("두번째 숫자: ");
             
             OperatorType operatorType;
             while (true) {
@@ -38,13 +38,13 @@ public class CalculatorApp {
                     System.out.println(e.getMessage());
                 }
             }
-            double result = calculator.calculate(operatorType, firstNumber, secondNumber);
-            if (!Double.isNaN(result)) {
+            Number result = calculator.calculate(operatorType, firstNumber, secondNumber);
+            if (result != null) {
                 calculator.addNumber(result);
-                calculator.printResult(firstNumber,secondNumber,operatorType,result);
+                calculator.printResult(firstNumber, secondNumber,operatorType,result);
             }
 
-            System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력)");
+            System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력|upper 초과값)");
             String command = scanner.nextLine();
             if (command.equals("exit")) {
                 break;
@@ -54,6 +54,11 @@ public class CalculatorApp {
             }
             if (command.equals("remove")) {
                 calculator.removeFirst();
+            }
+            if (command.equals("upper")) {
+                Number limitValue = inputNumber("기준값:");
+
+                calculator.findValuesAboveLimit(limitValue);
             }
         }
     }
@@ -71,20 +76,26 @@ public class CalculatorApp {
 
     }
 
-    private static Integer getNumber(String message) {
-        Integer inputNumber;
+    private static Number inputNumber(String message) {
         while (true) {
             try {
                 System.out.print(message);
-                inputNumber = scanner.nextInt();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("숫자만 입력 가능합니다.");
+                String input = scanner.next();
+                return convertToNumber(input);
 
-            } finally {
+            } catch (NumberFormatException e) {
+                System.out.println("숫자만 입력 가능합니다.");
+            }finally {
                 scanner.nextLine();
             }
         }
-        return inputNumber;
+    }
+
+    private static Number convertToNumber(String input) {
+        if (input.contains(".")) {
+            return Double.valueOf(input);
+        }
+
+        return Integer.valueOf(input);
     }
 }

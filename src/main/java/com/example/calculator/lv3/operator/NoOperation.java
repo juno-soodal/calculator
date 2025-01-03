@@ -1,9 +1,9 @@
 package com.example.calculator.lv3.operator;
 
-public class NoOperation implements Operation {
+public class NoOperation implements Operation{
+
     @Override
-    public Double operate(Integer firstNumber, Integer secondNumber) {
-        System.out.println("없는 연산자 입니다.");
-        return null;
+    public <T extends Number> T operate(T firstNumber, T secondNumber) {
+        throw new IllegalArgumentException("현재 없는 연산기호 입니다.");
     }
 }
