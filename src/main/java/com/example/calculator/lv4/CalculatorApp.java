@@ -1,9 +1,14 @@
 package com.example.calculator.lv4;
 
 
-import com.example.calculator.lv4.command.*;
+import com.example.calculator.lv4.command.operator.*;
+import com.example.calculator.lv4.command.user.*;
 import com.example.calculator.lv4.exception.global.ExitCommandException;
-import com.example.calculator.lv4.operator.*;
+import com.example.calculator.lv4.model.Calculator;
+import com.example.calculator.lv4.model.OperationManager;
+import com.example.calculator.lv4.service.CalculatorService;
+import com.example.calculator.lv4.service.CommandManager;
+import com.example.calculator.lv4.service.OperatorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -7,27 +7,28 @@ import java.util.Scanner;
 
 public class CalculatorUtil {
     private static final Logger log = LoggerFactory.getLogger(CalculatorUtil.class);
+    private static final Scanner scanner = new Scanner(System.in);
     public static Number inputNumber(String message) {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
+            String input = "";
             try {
-                System.out.print(message);
-                String input = scanner.next();
-                return convertToNumber(input);
-
+                input = getInput(message);
+                return tryConvertToNumber(input);
             } catch (NumberFormatException e) {
-                log.warn("Calculator Exception: {}","숫자만 입력 가능합니다.");
-            }finally {
-                scanner.nextLine();
+                log.info("숫자를 입력해야합니다. 입력값:{}", input);
             }
         }
     }
 
-    private static Number convertToNumber(String input) {
-        if (input.contains(".")) {
-            return Double.valueOf(input);
-        }
+    private static String getInput(String message) {
+        System.out.print(message);
+        return scanner.next();
+    }
 
-        return Integer.valueOf(input);
+    private static Number tryConvertToNumber(String input) {
+            if (input.contains(".")) {
+                return Double.valueOf(input);
+            }
+            return Integer.valueOf(input);
     }
 }

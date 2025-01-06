@@ -1,7 +1,8 @@
-package com.example.calculator.lv4;
+package com.example.calculator.lv4.model;
 
-import com.example.calculator.lv4.operator.NullOperation;
-import com.example.calculator.lv4.operator.Operation;
+import com.example.calculator.lv4.service.OperatorType;
+import com.example.calculator.lv4.command.operator.NullOperation;
+import com.example.calculator.lv4.command.operator.Operation;
 
 import java.util.Map;
 
