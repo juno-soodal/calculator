@@ -1,8 +1,6 @@
 package com.example.calculator.lv3;
 
 
-import com.example.calculator.lv3.operator.NoOperation;
-import com.example.calculator.lv3.operator.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +8,45 @@ import java.util.Map;
 
 public class Calculator<T extends Number> {
 
-    private final List<T> list = new ArrayList<>();
-
-    private Map<OperatorType, Operation> operations;
-    private Operation noOperation = new NoOperation();
-
-    public Calculator(Map<OperatorType, Operation> operations) {
-        this.operations = operations;
-    }
+    private List<T> list = new ArrayList<>();
 
     public T calculate(OperatorType operator, T firstNumber, T secondNumber) {
-        Operation operation = operations.getOrDefault(operator, noOperation);
-        try {
-            return operation.operate(firstNumber, secondNumber);
-        } catch (ArithmeticException | IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-            return null;
+        if (firstNumber instanceof Double) {
+            return (T) doubleCalculate(operator, firstNumber.doubleValue(), secondNumber.doubleValue());
         }
+        return (T) intCalculate(operator, firstNumber.intValue(), secondNumber.intValue());
 
+
+    }
+
+    private Integer intCalculate(OperatorType operator, int firstNumber, int secondNumber) {
+        switch (operator) {
+            case PLUS :
+                return firstNumber + secondNumber;
+            case MINUS:
+                return firstNumber - secondNumber;
+            case MULTIPLY:
+                return firstNumber * secondNumber;
+            case DIVIDE:
+                return firstNumber / secondNumber;
+            default:
+                return null;
+        }
+    }
+
+    private Double doubleCalculate(OperatorType operator, double firstNumber, double secondNumber) {
+        switch (operator) {
+            case PLUS :
+                return firstNumber + secondNumber;
+            case MINUS:
+                return firstNumber - secondNumber;
+            case MULTIPLY:
+                return firstNumber * secondNumber;
+            case DIVIDE:
+                return firstNumber / secondNumber;
+            default:
+                return null;
+        }
     }
 
     public void addNumber(T number) {
@@ -44,8 +63,12 @@ public class Calculator<T extends Number> {
         return remove;
     }
 
-    public void printAllResult() {
-        System.out.println(list);
+    public List<T> getList() {
+        return new ArrayList<>(list);
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
     }
 
     public void printResult(T firstNumber, T secondNumber, OperatorType operator, T result) {

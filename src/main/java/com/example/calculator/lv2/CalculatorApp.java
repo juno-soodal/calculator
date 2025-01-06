@@ -1,6 +1,5 @@
 package com.example.calculator.lv2;
 
-import com.example.calculator.lv2.operator.*;
 
 import java.util.*;
 
@@ -10,13 +9,8 @@ public class CalculatorApp {
 
 
     public static void main(String[] args) {
-        Map<String, Operation> operations = new HashMap<>();
-        operations.put("+", new AddOperation());
-        operations.put("-", new SubStractOperation());
-        operations.put("*", new MultiplyOperation());
-        operations.put("/", new DivideOperation());
 
-        Calculator calculator = new Calculator(operations);
+        Calculator calculator = new Calculator();
 
         while (true) {
 
@@ -24,7 +18,14 @@ public class CalculatorApp {
             Integer secondNumber = getNumber("두번째 숫자: ");
             String operator = getOperator();
             double result = calculator.calculate(operator, firstNumber, secondNumber);
-            calculator.printResult(firstNumber,secondNumber,operator,result);
+            if (Double.isNaN(result)) {
+                System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+            }else {
+                List<Double> list = calculator.getList();
+                list.add(result);
+                calculator.setList(list);
+                calculator.printResult(firstNumber,secondNumber,operator,result);
+            }
 
             System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력)");
             String command = scanner.nextLine();

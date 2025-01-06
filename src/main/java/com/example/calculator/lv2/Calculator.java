@@ -1,38 +1,34 @@
 package com.example.calculator.lv2;
 
-import com.example.calculator.lv2.operator.NoOperation;
-import com.example.calculator.lv2.operator.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Calculator {
 
     private List<Double> list = new ArrayList<>();
 
-    private Map<String,Operation> operations;
-    private Operation noOperation = new NoOperation();
-
-    public Calculator(Map<String, Operation> operations) {
-        this.operations = operations;
-    }
-
     public double calculate(String operator, Integer firstNumber, Integer secondNumber) {
-        Operation operation = operations.getOrDefault(operator, noOperation);
-        try {
-            double result = operation.operate(firstNumber, secondNumber);
-            addNumber(result);
-            return result;
-        } catch (ArithmeticException e) {
-            System.err.println(e.getMessage());
-            return 0.0;
+        switch (operator) {
+            case "+" :
+                return firstNumber + secondNumber;
+            case "-":
+                return  firstNumber - secondNumber;
+            case "*":
+                return  firstNumber * secondNumber;
+            case "/":
+                if (isZero(secondNumber)) {
+                    return Double.NaN;
+                }
+                return  (double) firstNumber / secondNumber;
+            default:
+                return 0;
         }
 
     }
 
-    public void addNumber(double number) {
-        list.add(number);
+    private static boolean isZero(Integer secondNumber) {
+        return secondNumber == 0;
     }
 
     public Double removeFirst() {
@@ -54,7 +50,7 @@ public class Calculator {
     }
 
     public List<Double> getList() {
-        return list;
+        return new ArrayList<>(list);
     }
 
     public void setList(List<Double> list) {
