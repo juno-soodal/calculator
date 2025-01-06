@@ -1,8 +1,8 @@
-package com.example.calculator.lv4;
+package com.example.calculator.lv4.service;
 
-import com.example.calculator.lv4.command.Command;
-import com.example.calculator.lv4.command.CommandResult;
-import com.example.calculator.lv4.command.NullCommand;
+import com.example.calculator.lv4.command.user.Command;
+import com.example.calculator.lv4.command.user.CommandResult;
+import com.example.calculator.lv4.command.user.NullCommand;
 
 import java.util.Map;
 

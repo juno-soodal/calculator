@@ -1,8 +1,6 @@
-package com.example.calculator.lv4.command;
+package com.example.calculator.lv4.command.user;
 
-import com.example.calculator.lv4.Calculator;
-
-import java.util.Scanner;
+import com.example.calculator.lv4.model.Calculator;
 
 import static com.example.calculator.lv4.util.CalculatorUtil.inputNumber;
 

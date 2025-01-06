@@ -1,11 +1,9 @@
-package com.example.calculator.lv4;
+package com.example.calculator.lv4.model;
 
 
-import com.example.calculator.lv4.exception.calculator.DivideByZeroException;
+import com.example.calculator.lv4.service.OperatorType;
 import com.example.calculator.lv4.exception.calculator.NoCalculationResultException;
-import com.example.calculator.lv4.operator.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.calculator.lv4.command.operator.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +13,13 @@ public class Calculator<T extends Number> {
     private final List<T> list = new ArrayList<>();
     private final OperationManager operationManager;
 
-    private static final Logger log = LoggerFactory.getLogger(Calculator.class);
     public Calculator(OperationManager calculatorManager) {
         this.operationManager = calculatorManager;
     }
 
     public T calculate(OperatorType operatorType, T firstNumber, T secondNumber) {
-
         Operation operation = operationManager.getOperation(operatorType);
-
-        try {
-            return operation.operate(firstNumber, secondNumber);
-        } catch (DivideByZeroException e) {
-            System.out.println("0으로 나눌 수 없습니다.");
-            log.warn("Calculator Exception: {}", e.getMessage());
-            return null;
-        }
-
+        return operation.operate(firstNumber, secondNumber);
     }
 
     public void addNumber(T number) {

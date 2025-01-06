@@ -1,4 +1,4 @@
-package com.example.calculator.lv4.operator;
+package com.example.calculator.lv4.command.operator;
 
 public class MultiplyOperation implements Operation {
 

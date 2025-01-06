@@ -1,4 +1,4 @@
-package com.example.calculator.lv4.command;
+package com.example.calculator.lv4.command.user;
 
 public enum CommandResult {
     CONTINUE("진행"), BREAK("종료");

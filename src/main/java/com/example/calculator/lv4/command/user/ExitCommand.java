@@ -1,4 +1,4 @@
-package com.example.calculator.lv4.command;
+package com.example.calculator.lv4.command.user;
 
 import com.example.calculator.lv4.exception.global.ExitCommandException;
 
