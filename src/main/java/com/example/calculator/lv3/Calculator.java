@@ -1,10 +1,8 @@
 package com.example.calculator.lv3;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Calculator<T extends Number> {
 
@@ -21,7 +19,7 @@ public class Calculator<T extends Number> {
 
     private Integer intCalculate(OperatorType operator, int firstNumber, int secondNumber) {
         switch (operator) {
-            case PLUS :
+            case PLUS:
                 return firstNumber + secondNumber;
             case MINUS:
                 return firstNumber - secondNumber;
@@ -36,7 +34,7 @@ public class Calculator<T extends Number> {
 
     private Double doubleCalculate(OperatorType operator, double firstNumber, double secondNumber) {
         switch (operator) {
-            case PLUS :
+            case PLUS:
                 return firstNumber + secondNumber;
             case MINUS:
                 return firstNumber - secondNumber;
@@ -72,7 +70,7 @@ public class Calculator<T extends Number> {
     }
 
     public void printResult(T firstNumber, T secondNumber, OperatorType operator, T result) {
-        System.out.println(firstNumber + " " + operator.getOperatorSymbol() + " " + secondNumber + " = "  + result);
+        System.out.println(firstNumber + " " + operator.getOperatorSymbol() + " " + secondNumber + " = " + result);
     }
 
     public void findValuesAboveLimit(Number limitValue) {

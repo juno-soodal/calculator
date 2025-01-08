@@ -1,5 +1,6 @@
 package com.example.calculator.lv3;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public enum OperatorType {
@@ -12,13 +13,10 @@ public enum OperatorType {
     }
 
     public static OperatorType getOperatorType(String inputOperatorSymbol) {
-            OperatorType[] values = OperatorType.values();
-            for (OperatorType value : values) {
-                if (inputOperatorSymbol.equals(value.getOperatorSymbol())) {
-                    return value;
-                }
-            }
-            throw new IllegalArgumentException("연산기호는 + , - , * , / 중에서 입력하세요 :" + inputOperatorSymbol);
+        return Arrays.stream(OperatorType.values())
+                .filter(operatorType -> operatorType.getOperatorSymbol().equals(inputOperatorSymbol))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("연산기호는 + , - , * , / 중에서 입력하세요 :" + inputOperatorSymbol));
     }
 
     public String getOperatorSymbol() {

@@ -19,52 +19,14 @@ public class CalculatorApp {
 
             Number firstNumber  = inputNumber("첫번째 숫자: ");
             Number secondNumber = inputNumber("두번째 숫자: ");
-            
-            OperatorType operatorType;
-            while (true) {
-                String inputOperatorSymbol = inputOperatorSymbol();
-                try {
-                    operatorType = OperatorType.getOperatorType(inputOperatorSymbol);
-                    break;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            try {
-                Number result = calculator.calculate(operatorType, firstNumber, secondNumber);
-                List<Number> list = calculator.getList();
-                list.add(result);
-                calculator.setList(list);
-                calculator.printResult(firstNumber,secondNumber,operatorType,result);
-            } catch (ArithmeticException e) {
-                System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
-            }
 
+            OperatorType operatorType = inputOperatorType();
+            runCalculator(calculator, operatorType, firstNumber, secondNumber);
 
-            System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력|upper 초과값)");
-            String command = scanner.nextLine();
-            if (command.equals("exit")) {
+            if (!processCommand(calculator)) {
                 break;
             }
-            if (command.equals("remove")) {
-                calculator.removeFirst();
-            }
-            if (command.equals("upper")) {
-                Number limitValue = inputNumber("기준값:");
-                calculator.findValuesAboveLimit(limitValue);
-            }
-        }
-    }
 
-    private static String inputOperatorSymbol() {
-        String inputOperatorSymbol;
-        while (true) {
-            System.out.print("연산기호: ");
-            inputOperatorSymbol = scanner.nextLine();
-            if (!inputOperatorSymbol.isEmpty()) {
-                return inputOperatorSymbol;
-            }
-            System.out.println("연산기호를 입력하세요");
         }
     }
 
@@ -90,4 +52,64 @@ public class CalculatorApp {
 
         return Integer.valueOf(input);
     }
+
+    private static OperatorType inputOperatorType() {
+        OperatorType operatorType;
+        while (true) {
+            String inputOperatorSymbol = inputOperatorSymbol();
+            try {
+                operatorType = OperatorType.getOperatorType(inputOperatorSymbol);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return operatorType;
+    }
+
+    private static void runCalculator(Calculator<Number> calculator, OperatorType operatorType, Number firstNumber, Number secondNumber) {
+        try {
+            Number result = calculator.calculate(operatorType, firstNumber, secondNumber);
+            List<Number> list = calculator.getList();
+            list.add(result);
+            calculator.setList(list);
+            calculator.printResult(firstNumber, secondNumber, operatorType,result);
+        } catch (ArithmeticException e) {
+            System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+        }
+    }
+
+    private static boolean processCommand(Calculator<Number> calculator) {
+
+
+        System.out.print("더 계산하시겠습니까? (exit 종료|remove 삭제|result 출력|upper 초과값)");
+        String command = scanner.nextLine();
+        if (command.equals("exit")) {
+            return false;
+        }
+        if (command.equals("remove")) {
+            calculator.removeFirst();
+        }
+        if (command.equals("upper")) {
+            Number limitValue = inputNumber("기준값:");
+            calculator.findValuesAboveLimit(limitValue);
+        }
+        return true;
+    }
+
+
+
+    private static String inputOperatorSymbol() {
+        String inputOperatorSymbol;
+        while (true) {
+            System.out.print("연산기호: ");
+            inputOperatorSymbol = scanner.nextLine();
+            if (!inputOperatorSymbol.isEmpty()) {
+                return inputOperatorSymbol;
+            }
+            System.out.println("연산기호를 입력하세요");
+        }
+    }
+
+
 }
