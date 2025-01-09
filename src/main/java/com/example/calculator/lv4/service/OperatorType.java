@@ -2,6 +2,8 @@ package com.example.calculator.lv4.service;
 
 import com.example.calculator.lv4.exception.calculator.UnSupportedOperatorException;
 
+import java.util.Arrays;
+
 public enum OperatorType {
     PLUS("+"), MINUS("-"), MULTIPLY("*"), DIVIDE("/");
 
@@ -12,13 +14,10 @@ public enum OperatorType {
     }
 
     public static OperatorType getOperatorType(String inputOperatorSymbol) {
-            OperatorType[] values = OperatorType.values();
-            for (OperatorType value : values) {
-                if (inputOperatorSymbol.equals(value.getOperatorSymbol())) {
-                    return value;
-                }
-            }
-            throw new UnSupportedOperatorException();
+        return Arrays.stream(OperatorType.values())
+                .filter(operatorType -> operatorType.getOperatorSymbol().equals(inputOperatorSymbol))
+                .findFirst()
+                .orElseThrow(() -> new UnSupportedOperatorException());
     }
 
     public String getOperatorSymbol() {

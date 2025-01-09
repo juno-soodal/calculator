@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
-public class CalculatorUtil {
+public abstract class CalculatorUtil {
     private static final Logger log = LoggerFactory.getLogger(CalculatorUtil.class);
     private static final Scanner scanner = new Scanner(System.in);
     public static Number inputNumber(String message) {
