@@ -29,7 +29,7 @@
 1. 첫 번째 숫자를 입력합니다.
 2. 두 번째 숫자를 입력합니다.
 3. 연산자를 입력합니다.
-4. 명령어를 입력합니다. [exit, save,again, display, remove, upper]
+4. 명령어를 입력합니다. [exit,again, display, remove, upper]
 * * *
 ## 코드 구조
 
